@@ -1,5 +1,6 @@
 # Cursepr
- public partial class AddNewIllness : Form   // Форма додавання нової хвороби
+ 
+    public partial class AddNewIllness : Form   // Форма додавання нової хвороби
     {
         BaseOfIllneses baseofillness = new BaseOfIllneses(); // Поле, що зберігає базу хвороб
 
@@ -8,7 +9,7 @@
             InitializeComponent();
         }
 
-        private void AddNewIllness_Load(object sender, EventArgs e) 
+        private void AddNewIllness_Load(object sender, EventArgs e) // Завантаження форми
         {
             Sklad sklad = ReadWriteToFile.ReadSklad();
             try
@@ -20,7 +21,7 @@
             { }
         }
 
-        public bool IsValid()   
+        public bool IsValid()   // Перевірка заповнення форми
         {
             Regex regex = new Regex("[0-9_*?:%!@<>№-]");
             if (!regex.IsMatch(textBox1.Text.Trim()) && !regex.IsMatch(textBox2.Text.Trim())
@@ -31,7 +32,7 @@
             return false;       
         }
 
-       
+        // Перевіка вводу полів
         private void textBox1_Validating(object sender, CancelEventArgs e)
         {
             e.Cancel = textBox1.Text.Trim() == String.Empty;
@@ -55,7 +56,7 @@
             errorProvider1.SetError(textBox1, textError);
         }
 
-        private void button1_Click(object sender, EventArgs e) 
+        private void button1_Click(object sender, EventArgs e) // Натискання кнопки "Додати"
         {
             if (!IsValid())
             {
@@ -82,4 +83,8 @@
                 baseofillness.AddIllnessToBase(ill);
                 baseofillness.Add(ill);
                 ReadWriteToFile.WriteIllness(baseofillness);
-                DialogResult = DialogResult.O
+                DialogResult = DialogResult.OK;
+            }
+
+        }      
+    }
